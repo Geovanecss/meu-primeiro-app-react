@@ -10,7 +10,6 @@ export default function App() {
   const [error, setError] = useState(null);
   const [showFavorites, setShowFavorites] = useState(false);
 
-  // Função para buscar posts da API
   const fetchPosts = async () => {
     try {
       setLoading(true);
@@ -23,7 +22,6 @@ export default function App() {
     }
   };
 
-  // Função para carregar favoritos do AsyncStorage
   const loadFavorites = async () => {
     try {
       const storedFavorites = await AsyncStorage.getItem('favorites');
@@ -35,7 +33,6 @@ export default function App() {
     }
   };
 
-  // Função para salvar favoritos no AsyncStorage
   const saveFavorites = async (newFavorites) => {
     try {
       await AsyncStorage.setItem('favorites', JSON.stringify(newFavorites));
@@ -45,7 +42,6 @@ export default function App() {
     }
   };
 
-  // Função para adicionar/remover favorito
   const toggleFavorite = (post) => {
     const isFavorite = favorites.some((fav) => fav.id === post.id);
     let newFavorites;
@@ -57,13 +53,11 @@ export default function App() {
     saveFavorites(newFavorites);
   };
 
-  // Carregar posts e favoritos ao iniciar
   useEffect(() => {
     fetchPosts();
     loadFavorites();
   }, []);
 
-  // Renderizar cada item da lista
   const renderItem = ({ item }) => {
     const isFavorite = favorites.some((fav) => fav.id === item.id);
     return (
@@ -79,7 +73,6 @@ export default function App() {
     );
   };
 
-  // Alternar entre lista de posts e favoritos
   const toggleView = () => {
     setShowFavorites(!showFavorites);
   };
